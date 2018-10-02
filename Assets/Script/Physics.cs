@@ -8,46 +8,80 @@ public class Physics : MonoBehaviour {
     public float mass;
     [SerializeField]
     private Vector3 acceleration;
-    public Vector3 velocity;
+    [SerializeField]
+    private Vector3 extraImpulsion;
+    [SerializeField]
+    private Vector3 velocity;
     private bool isGrounded;
     private bool isLocked = false;
     public float groundSpeed;
     public int numberJumpMax=2;
     public int numberJumpCurrent=0;
-    public float groundedJumpImpulsion = 100;
-    public float airJumpImpulsion = 100;
+    public float groundedJumpSpeed = 100;
+    public float airJumpSpeed = 100;
     public float airAcceleration;
     public Vector2 airFriction;
     public Vector2 groundFriction;
+    public Vector3 Velocity
+    {
+        get
+        {
+            return velocity;
+        }
+
+        set
+        {
+            velocity = value;
+        }
+    }
+
     
+    public bool IsGrounded
+    {
+        get
+        {
+            return isGrounded;
+        }
+
+        set
+        {
+            isGrounded = value;
+        }
+    }
+
     private void Start()
     {
         acceleration = new Vector3(0, 0, 0);
-        velocity = new Vector3(0, 0, 0);
+        Velocity = new Vector3(0, 0, 0);
     }
 
     private void Gravity()
     {
-        acceleration.y = mass*gravity;
+        if (!isGrounded)
+        {
+            acceleration.y = mass*gravity + extraImpulsion.y;
+            extraImpulsion.y = 0;
+        }
+        
     }
 
     private void GVelocity()
     {
         Vector3 new_velocity;
         if (!isGrounded)
-        { velocity.x= Mathf.Abs(velocity.x) - airFriction.x > 0 ? velocity.x - Mathf.Sign(velocity.x) * airFriction.x:0;
-            velocity.y = Mathf.Abs(velocity.y) - airFriction.y > 0 ? velocity.y - Mathf.Sign(velocity.x)*airFriction.y : 0;
+        { velocity.x= Mathf.Abs(velocity.x) - airFriction.x  * Mathf.Abs(velocity.x) > 0 ? velocity.x - Mathf.Sign(velocity.x) * airFriction.x * Mathf.Abs(velocity.x) : 0;
+            velocity.y = Mathf.Abs(velocity.y) - airFriction.y * Mathf.Abs(velocity.y) > 0 ? velocity.y - Mathf.Sign(velocity.y)*airFriction.y * Mathf.Abs(velocity.y) : 0;
 
         }
           
         new_velocity = velocity + acceleration * Time.deltaTime;
-        velocity = new_velocity;
+        Velocity = new_velocity;
     }
 
     private void Position()
     {
         Vector3 new_pos;
-        new_pos = gameObject.transform.position + velocity * Time.deltaTime;
+        new_pos = gameObject.transform.position + Velocity * Time.deltaTime;
         gameObject.transform.position = new_pos;
     }
     public void Move(float horizontal)
@@ -67,12 +101,12 @@ public class Physics : MonoBehaviour {
         Debug.Log("Bonjourno");
         if(isGrounded && numberJumpCurrent<numberJumpMax)
         { 
-        acceleration.y += groundedJumpImpulsion;
+            velocity.y = groundedJumpSpeed;
             numberJumpCurrent++;
         }
         else if(!isGrounded && numberJumpCurrent < numberJumpMax)
         {
-            acceleration.y += airJumpImpulsion;
+            velocity.y = airJumpSpeed;
             numberJumpCurrent++;
         }
     }

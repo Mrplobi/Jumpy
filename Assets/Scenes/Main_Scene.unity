@@ -162,6 +162,56 @@ Prefab:
       propertyPath: mass
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114426576991287712, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1281890614}
+    - target: {fileID: 114434351621790844, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+        type: 2}
+      propertyPath: airAcceleration
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114434351621790844, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+        type: 2}
+      propertyPath: gravity
+      value: -40
+      objectReference: {fileID: 0}
+    - target: {fileID: 114434351621790844, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+        type: 2}
+      propertyPath: airFriction.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 114434351621790844, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+        type: 2}
+      propertyPath: groundFriction.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114434351621790844, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+        type: 2}
+      propertyPath: airJumpImpulsion
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114434351621790844, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+        type: 2}
+      propertyPath: numberJumpMax
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114434351621790844, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+        type: 2}
+      propertyPath: airJumpSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114434351621790844, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+        type: 2}
+      propertyPath: groundedJumpSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114434351621790844, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+        type: 2}
+      propertyPath: airFriction.y
+      value: 0.05
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0c30c397fc01c34da149dd56f5d5c4a, type: 2}
   m_IsPrefabAsset: 0
@@ -290,6 +340,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1685119414424068, guid: a0c30c397fc01c34da149dd56f5d5c4a,
     type: 2}
   m_PrefabInternal: {fileID: 38068512}
+--- !u!114 &1281890614 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114434351621790844, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+    type: 2}
+  m_PrefabInternal: {fileID: 38068512}
+  m_Script: {fileID: 11500000, guid: 2997b31724d9f484fada2ff9967f5216, type: 3}
 --- !u!50 &1281890618
 Rigidbody2D:
   serializedVersion: 4
