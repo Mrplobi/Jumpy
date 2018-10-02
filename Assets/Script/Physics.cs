@@ -6,31 +6,61 @@ public class Physics : MonoBehaviour {
 
     public float gravity;
     public float mass;
+    private bool isGrounded;
     private Vector3 acceleration;
-    public Vector3 velocity;
+    private Vector3 velocity;
+    public Vector3 Velocity
+    {
+        get
+        {
+            return velocity;
+        }
+
+        set
+        {
+            velocity = value;
+        }
+    }
+
+    public bool IsGrounded
+    {
+        get
+        {
+            return isGrounded;
+        }
+
+        set
+        {
+            isGrounded = value;
+        }
+    }
 
     private void Start()
     {
         acceleration = new Vector3(0, 0, 0);
-        velocity = new Vector3(0, 0, 0);
+        Velocity = new Vector3(0, 0, 0);
     }
 
     private void Gravity()
     {
-        acceleration.y = mass*gravity;
+        if (!isGrounded)
+        {
+            acceleration.y = mass*gravity;
+        }
+        
     }
 
     private void GVelocity()
     {
         Vector3 new_velocity;
         new_velocity = velocity + acceleration * Time.deltaTime;
-        velocity = new_velocity;
+        Velocity = new_velocity;
     }
 
     private void Position()
     {
         Vector3 new_pos;
-        new_pos = gameObject.transform.position + velocity * Time.deltaTime;
+        new_pos = gameObject.transform.position + Velocity * Time.deltaTime;
         gameObject.transform.position = new_pos;
     }
 
