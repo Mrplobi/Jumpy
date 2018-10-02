@@ -6,6 +6,7 @@ public class Physics : MonoBehaviour {
 
     public float gravity;
     public float mass;
+    [SerializeField]
     private Vector3 acceleration;
     public Vector3 velocity;
     private bool isGrounded;
@@ -72,7 +73,7 @@ public class Physics : MonoBehaviour {
         else if(!isGrounded && numberJumpCurrent < numberJumpMax)
         {
             acceleration.y += airJumpImpulsion;
-        numberJumpCurrent++;
+            numberJumpCurrent++;
         }
     }
     private void Update()
