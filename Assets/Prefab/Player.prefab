@@ -23,7 +23,9 @@ GameObject:
   - component: {fileID: 61599645933581096}
   - component: {fileID: 114434351621790844}
   - component: {fileID: 114426576991287712}
-  m_Layer: 0
+  - component: {fileID: 50626096143668866}
+  - component: {fileID: 114109610487484940}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,12 +39,32 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1685119414424068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 2.4633791, y: -3.25, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50626096143668866
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1685119414424068}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61599645933581096
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -68,6 +90,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114109610487484940
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1685119414424068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc62ac007da4bbd439c61cae03a40643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114426576991287712
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -79,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25d99c3db059de548b5d6eef7d0b8e74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 114434351621790844}
 --- !u!114 &114434351621790844
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,8 +124,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2997b31724d9f484fada2ff9967f5216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravity: -10
-  mass: 10
+  gravity: -40
+  mass: 1
+  acceleration: {x: 0, y: 0, z: 0}
+  extraImpulsion: {x: 0, y: 0, z: 0}
+  velocity: {x: 0, y: 0, z: 0}
+  groundSpeed: 20
+  numberJumpMax: 500
+  numberJumpCurrent: 22
+  groundedJumpSpeed: 100
+  airJumpSpeed: 20
+  airAcceleration: 20
+  airFriction: {x: 0.05, y: 0.05}
+  groundFriction: {x: 0, y: 0}
 --- !u!212 &212584113962688482
 SpriteRenderer:
   m_ObjectHideFlags: 1

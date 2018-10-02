@@ -57,6 +57,7 @@ public class Physics : MonoBehaviour {
 
     private void Gravity()
     {
+        acceleration.y = 0;
         if (!isGrounded)
         {
             acceleration.y = mass*gravity + extraImpulsion.y;
