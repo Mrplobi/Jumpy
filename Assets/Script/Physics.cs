@@ -63,6 +63,7 @@ public class Physics : MonoBehaviour {
             acceleration.y = mass*gravity + extraImpulsion.y;
             extraImpulsion.y = 0;
         }
+
         
     }
 
@@ -103,6 +104,7 @@ public class Physics : MonoBehaviour {
         if(isGrounded && numberJumpCurrent<numberJumpMax)
         { 
             velocity.y = groundedJumpSpeed;
+            isGrounded = false;
             numberJumpCurrent++;
         }
         else if(!isGrounded && numberJumpCurrent < numberJumpMax)
@@ -116,5 +118,6 @@ public class Physics : MonoBehaviour {
         Gravity();
         GVelocity();
         Position();
+        GetComponent<Colision>().DetectColision();
     }
 }

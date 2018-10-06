@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
        // Debug.Log(Input.GetAxis("Horizontal"));
         player.Move(Input.GetAxis("Horizontal"));
 
