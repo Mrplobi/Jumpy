@@ -86,7 +86,7 @@ public class Physics : MonoBehaviour {
         new_pos = gameObject.transform.position + Velocity * Time.deltaTime;
         gameObject.transform.position = new_pos;
     }
-    public void Move(float horizontal)
+    public bool Move(float horizontal) //TODO return false if collision
     {
         if (!isLocked && isGrounded)
         {
@@ -96,12 +96,13 @@ public class Physics : MonoBehaviour {
         {
             acceleration.x = horizontal * airAcceleration;
         }
-
+        return true;
     }
-    public void Jump()
+    public bool Jump()
     {
-        Debug.Log("Bonjourno");
-        if(isGrounded && numberJumpCurrent<numberJumpMax)
+        
+        
+        if (isGrounded && numberJumpCurrent<numberJumpMax)
         { 
             velocity.y = groundedJumpSpeed;
             isGrounded = false;
@@ -111,7 +112,9 @@ public class Physics : MonoBehaviour {
         {
             velocity.y = airJumpSpeed;
             numberJumpCurrent++;
+            return true;
         }
+        return false;
     }
     private void Update()
     {
