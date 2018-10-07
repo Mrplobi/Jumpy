@@ -163,10 +163,10 @@ public class Physics : MonoBehaviour {
         return false;
     }
     private void Update()
-    {
+    { GetComponent<Colision>().DetectColision();
         Gravity();
         GVelocity();
         Position();
-        GetComponent<Colision>().DetectColision();
+       
     }
 }
