@@ -19,9 +19,17 @@ public class InputManager : MonoBehaviour {
     /// </summary>
     /// <param name="inputAction"></param>
     /// <returns></returns>
-	public InputButton SearchForFailedAction(InputButton.InputAction inputAction) //TODO
+	public InputButton SearchForFailedAction(InputButton.InputAction inputAction,int threshHold) //TODO
     {
-        throw new NotImplementedException();
+        for(int i=0;i<threshHold;i++)
+        {
+            Debug.Log((bufferIndexIn - i) % bufferSizeMax);
+            if(buffer[(bufferIndexIn - i) % bufferSizeMax]!=null && buffer[(bufferIndexIn - i) % bufferSizeMax].actualAction==inputAction && !buffer[(bufferIndexIn - i) % bufferSizeMax].actionSucceeded)
+            {
+                return buffer[(bufferIndexIn - i)%bufferSizeMax];
+            }
+        }
+        return null;
     }
     /// <summary>
     /// Used to facilitate equality of delegate

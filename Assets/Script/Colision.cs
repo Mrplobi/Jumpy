@@ -39,6 +39,12 @@ public class Colision : MonoBehaviour {
             physics.Velocity = newSpeed;
             physics.numberJumpCurrent = 0;
             transform.position = new Vector3(transform.position.x, hitD.collider.bounds.max.y + GetComponent<Collider2D>().bounds.size.y / 2);
+            //check if jump buffered
+            InputButton action=GetComponent<InputManager>().SearchForFailedAction(physics.Jump, 10);
+            if (action!=null)
+            {
+                action.Invoke();
+            }
         }
         else
         {

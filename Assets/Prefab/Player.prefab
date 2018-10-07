@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1685119414424068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.370816, y: -3.377333, z: 0}
+  m_LocalPosition: {x: 1.25, y: -1.135, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
@@ -131,7 +131,7 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   groundSpeed: 20
   numberJumpMax: 500
-  numberJumpCurrent: 24
+  numberJumpCurrent: 0
   groundedJumpSpeed: 20
   airJumpSpeed: 20
   airAcceleration: 20
