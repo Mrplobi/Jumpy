@@ -13,7 +13,10 @@ public class InputManager : MonoBehaviour {
     void Start () {
         buffer = new InputButton[bufferSizeMax];
 	}
-
+    int mod(int x, int m)
+    {
+        return (x % m + m) % m;
+    }
     /// <summary>
     /// Returns the last Inputbutton that matches inputAction delegate and that failed
     /// </summary>
@@ -23,10 +26,12 @@ public class InputManager : MonoBehaviour {
     {
         for(int i=0;i<threshHold;i++)
         {
-            Debug.Log((bufferIndexIn - i) % bufferSizeMax);
-            if(buffer[(bufferIndexIn - i) % bufferSizeMax]!=null && buffer[(bufferIndexIn - i) % bufferSizeMax].actualAction==inputAction && !buffer[(bufferIndexIn - i) % bufferSizeMax].actionSucceeded)
+            //Debug.Log((bufferIndexIn - i) % bufferSizeMax);
+            if(buffer[mod((bufferIndexIn - i), bufferSizeMax)]!=null &&
+                buffer[mod((bufferIndexIn - i), bufferSizeMax)].actualAction==inputAction &&
+                !buffer[mod((bufferIndexIn - i), bufferSizeMax)].actionSucceeded)
             {
-                return buffer[(bufferIndexIn - i)%bufferSizeMax];
+                return buffer[mod((bufferIndexIn - i), bufferSizeMax)];
             }
         }
         return null;
