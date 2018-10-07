@@ -63,17 +63,31 @@ public class Colision : MonoBehaviour {
         }
         if (hitR)
         {
-            Debug.Log("collisionRight");
+        //    Debug.Log("collisionRight");
             Vector3 newSpeed = new Vector3(0, physics.Velocity.y, 0);
             physics.Velocity = newSpeed;
             transform.position = new Vector3(hitR.collider.bounds.min.x - GetComponent<Collider2D>().bounds.size.x / 2 - 0.01f, transform.position.y);
+            InputButton actionJump = GetComponent<InputManager>().SearchForFailedAction(physics.Jump, 10);
+            InputButton actionMove = GetComponent<InputManager>().SearchForFailedAction(GetComponent<InputManager>().MoveLeft, 10);
+
+            if (actionJump != null && actionMove != null && !physics.IsGrounded)
+            {
+                Debug.Log("WallJUMP");
+            }
         }
         if (hitL)
         {
-            Debug.Log("collisionLeft");
+          //  Debug.Log("collisionLeft");
             Vector3 newSpeed = new Vector3(0, physics.Velocity.y, 0);
             physics.Velocity = newSpeed;
             transform.position = new Vector3(hitL.collider.bounds.max.x + GetComponent<Collider2D>().bounds.size.x / 2 + 0.01f, transform.position.y);
+            InputButton actionJump = GetComponent<InputManager>().SearchForFailedAction(physics.Jump, 10);
+            InputButton actionMove = GetComponent<InputManager>().SearchForFailedAction(GetComponent<InputManager>().MoveRight, 10);
+
+            if (actionJump != null && actionMove !=null && !physics.IsGrounded)
+            {
+                Debug.Log("WallJUMP");
+            }
         }
     }
 

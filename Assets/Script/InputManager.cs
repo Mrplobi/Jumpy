@@ -26,7 +26,14 @@ public class InputManager : MonoBehaviour
     /// <returns></returns>
 	public InputButton SearchForFailedAction(InputButton.InputAction inputAction, int threshHold) //TODO
     {
-        for (int i = 0; i < threshHold; i++)
+        //si c'est sur la frame courante
+        if (buffer[mod((bufferIndexIn), bufferSizeMax)] != null &&
+            buffer[mod((bufferIndexIn), bufferSizeMax)].actualAction == inputAction )
+         {
+            return buffer[mod((bufferIndexIn), bufferSizeMax)];
+        }
+
+        for (int i = 1; i < threshHold; i++)
         {
             //Debug.Log((bufferIndexIn - i) % bufferSizeMax);
             if (buffer[mod((bufferIndexIn - i), bufferSizeMax)] != null &&
@@ -42,7 +49,11 @@ public class InputManager : MonoBehaviour
     /// Used to facilitate equality of delegate
     /// </summary>
     /// <returns></returns>
-    public bool MoveMethod()
+    public bool MoveRight()
+    {
+        return player.Move(Input.GetAxis("Horizontal"));
+    }
+    public bool MoveLeft()
     {
         return player.Move(Input.GetAxis("Horizontal"));
     }
@@ -50,9 +61,21 @@ public class InputManager : MonoBehaviour
     void LateUpdate()
     {
         // Debug.Log(Input.GetAxis("Horizontal"));
+        if(Input.GetAxis("Horizontal")>0)
+            {
+            buffer[bufferIndexIn] = new InputButton(MoveRight);
 
-        buffer[bufferIndexIn] = new InputButton(MoveMethod);
-        bufferIndexIn = (bufferIndexIn + 1) % bufferSizeMax;
+            bufferIndexIn = (bufferIndexIn + 1) % bufferSizeMax;
+
+        }
+        else
+        {
+
+            buffer[bufferIndexIn] = new InputButton(MoveRight);
+
+            bufferIndexIn = (bufferIndexIn + 1) % bufferSizeMax;
+
+        }
         if (Input.GetButtonDown("Jump"))
         {
             buffer[bufferIndexIn] = new InputButton(player.Jump);
