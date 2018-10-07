@@ -16,6 +16,14 @@ public class Colision : MonoBehaviour
             physics.Velocity = new Vector3(physics.Velocity.x, 0, 0);
             transform.position = new Vector3(transform.position.x, other.bounds.max.y + GetComponent<Collider2D>().bounds.size.y / 2);
         }
+        if (GetComponent<Collider2D>().bounds.min.y < other.bounds.min.y && GetComponent<Collider2D>().bounds.max.y > other.bounds.min.y)//On arrive par en dessous
+        {
+            Physics physics = gameObject.GetComponent<Physics>();
+
+            Debug.Log("BopBop DETECTED");
+            physics.Velocity = new Vector3(physics.Velocity.x, 0, 0);
+            transform.position = new Vector3(transform.position.x, other.bounds.min.y - GetComponent<Collider2D>().bounds.size.y / 2);
+        }
     }
     public void DetectColision()
     {
@@ -51,9 +59,17 @@ public class Colision : MonoBehaviour
 
             }
         }
+        
         else
         {
             physics.IsGrounded = false;
+        }
+        if (hitU)
+        {
+            Debug.Log("collisionUp");
+            Vector3 newSpeed = new Vector3(physics.Velocity.x, 0, 0);
+            physics.Velocity = newSpeed;
+            transform.position = new Vector3(transform.position.x, hitU.collider.bounds.min.y - GetComponent<Collider2D>().bounds.size.y / 2 - 0.01f);
         }
     }
 
