@@ -11,6 +11,6 @@ public class MoverH : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = new Vector3(transform.position + platformSpeed)
+        transform.position = new Vector3(transform.position.x + platformSpeed, 0);
 	}
 }
