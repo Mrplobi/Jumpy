@@ -104,11 +104,17 @@ public class Physics : MonoBehaviour {
     }
     public IEnumerator GetDragged(GameObject obj)
     {
-        
 
-        while((obj.transform.position - transform.position).magnitude>tetherSpeed*Time.deltaTime*tetherThreshHold && tetherSpeed > 0)
+        if (isGrounded && (obj.transform.position - transform.position).y > 0)
         {
-            Velocity = (obj.transform.position - transform.position).normalized * tetherSpeed;
+            Debug.Log("Tether bump");
+            Jump();
+        }
+        while ((obj.transform.position - transform.position).magnitude>tetherSpeed*Time.deltaTime*tetherThreshHold && tetherSpeed > 0)
+        {
+           // isGrounded = false;
+            velocity = (obj.transform.position - transform.position).normalized * tetherSpeed;
+            
             yield return null;
         }
         coroutineDragging = null;
@@ -139,7 +145,10 @@ public class Physics : MonoBehaviour {
         else
         {
             Debug.Log("START tether");
-            coroutineDragging=StartCoroutine(GetDragged(closestHit.gameObject));
+            //isGrounded = false;
+            
+            coroutineDragging =StartCoroutine(GetDragged(closestHit.gameObject));
+            
             return true;
         }
 

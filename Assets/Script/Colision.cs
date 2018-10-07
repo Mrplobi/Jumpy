@@ -31,10 +31,10 @@ public class Colision : MonoBehaviour {
         //float size = gameObject.GetComponent<Collider2D>().Distance() * gameObject.transform.localScale.y;
         Vector3 velocity = physics.Velocity;
         //Vector2 direction = new Vector2(gameObject.GetComponent<Physics>().Velocity.x, gameObject.GetComponent<Physics>().Velocity.y);
-        Vector2 originD = new Vector2(gameObject.transform.position.x, gameObject.GetComponent<Collider2D>().bounds.min.y+0.01f);
-        Vector2 originU = new Vector2(gameObject.transform.position.x, gameObject.GetComponent<Collider2D>().bounds.max.y + 0.01f);
-        Vector2 originR = new Vector2(gameObject.transform.position.x, gameObject.GetComponent<Collider2D>().bounds.max.x + 0.01f);
-        Vector2 originL = new Vector2(gameObject.transform.position.x, gameObject.GetComponent<Collider2D>().bounds.min.x + 0.01f);
+        Vector2 originD = new Vector2(gameObject.transform.position.x, gameObject.GetComponent<Collider2D>().bounds.min.y-0.01f);
+        Vector2 originU = new Vector2(gameObject.transform.position.x, gameObject.GetComponent<Collider2D>().bounds.max.y - 0.01f);
+        Vector2 originR = new Vector2(gameObject.transform.position.x, gameObject.GetComponent<Collider2D>().bounds.max.x - 0.01f);
+        Vector2 originL = new Vector2(gameObject.transform.position.x, gameObject.GetComponent<Collider2D>().bounds.min.x - 0.01f);
         RaycastHit2D hitD = Physics2D.Raycast(originD, -gameObject.transform.up, velocity.y * Time.deltaTime, LayerMask.GetMask("Environment"));
         RaycastHit2D hitU = Physics2D.Raycast(originU, gameObject.transform.up, velocity.y * Time.deltaTime, LayerMask.GetMask("Environment"));
         RaycastHit2D hitR = Physics2D.Raycast(originR, gameObject.transform.right, velocity.x * Time.deltaTime, LayerMask.GetMask("Environment"));
@@ -42,7 +42,7 @@ public class Colision : MonoBehaviour {
         if (hitD)
         {
 
-            Debug.Log("collisionDown");
+         //   Debug.Log("collisionDown");
             physics.IsGrounded = true;
            /* Vector3 impact = new Vector3(hitD.point.x, hitD.point.y+
                 gameObject.GetComponent<Collider2D>().bounds.size.y/2, 0);
@@ -66,7 +66,7 @@ public class Colision : MonoBehaviour {
         }
         if (hitU)
         {
-            Debug.Log("collisionUp");
+            //Debug.Log("collisionUp");
             Vector3 newSpeed = new Vector3(physics.Velocity.x, 0, 0);
             physics.Velocity = newSpeed;
             transform.position = new Vector3(transform.position.x, hitU.collider.bounds.min.y - GetComponent<Collider2D>().bounds.size.y / 2 - 0.01f);
