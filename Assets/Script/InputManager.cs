@@ -54,10 +54,15 @@ public class InputManager : MonoBehaviour {
         {   buffer[bufferIndexIn]= new InputButton(player.Jump);
             bufferIndexIn = (bufferIndexIn + 1) % bufferSizeMax;
         }
+        if (Input.GetButtonDown("Tether"))
+        {
+            buffer[bufferIndexIn] = new InputButton(player.Tether);
+            bufferIndexIn = (bufferIndexIn + 1) % bufferSizeMax;
+        }
 
 
         //On dépile tout
-        while(bufferIndexOut != bufferIndexIn) // c'est ici qu'on gèrerait les prio si il y en avait
+        while (bufferIndexOut != bufferIndexIn) // c'est ici qu'on gèrerait les prio si il y en avait
         {
             buffer[bufferIndexOut].Invoke();
             bufferIndexOut = (bufferIndexOut + 1) % bufferSizeMax;
