@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoverH : MonoBehaviour {
+public class TetherPoint : MonoBehaviour {
 
-	public float platformSpeed;
+	// Use this for initialization
 	void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        //transform.position = new Vector3(transform.position + platformSpeed);
+		
 	}
 }

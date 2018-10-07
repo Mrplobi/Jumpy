@@ -12,12 +12,17 @@ public class Physics : MonoBehaviour {
     private Vector3 extraImpulsion;
     [SerializeField]
     private Vector3 velocity;
+    private Coroutine coroutineDragging;
+
     private bool isGrounded;
     private bool isLocked = false;
     public float groundSpeed;
     public int numberJumpMax=2;
     public int numberJumpCurrent=0;
     public float groundedJumpSpeed = 100;
+    public float tetherSpeed;
+    public float tetherThreshHold = 3;
+    public float tetherDistance = 10;
     public float airJumpSpeed = 100;
     public float airAcceleration;
     public Vector2 airFriction;
@@ -48,7 +53,48 @@ public class Physics : MonoBehaviour {
             isGrounded = value;
         }
     }
+    public IEnumerator GetDragged(GameObject obj)
+    {
 
+
+        while ((obj.transform.position - transform.position).magnitude > tetherSpeed * Time.deltaTime * tetherThreshHold && tetherSpeed > 0)
+        {
+            Velocity = (obj.transform.position - transform.position).normalized * tetherSpeed;
+            yield return null;
+        }
+        coroutineDragging = null;
+    }
+    public bool Tether()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, tetherDistance, LayerMask.GetMask("Tether"));
+        float closestDistance = tetherDistance;
+        Collider2D closestHit = null;
+        Debug.Log("Size tether hits" + hits.Length);
+        foreach (Collider2D hit in hits)//get closest and get dragged to it
+        {
+            Debug.Log("Tether distance" + (hit.transform.position - transform.position).magnitude);
+            Debug.Log(hit.gameObject);
+            if (hit.GetComponent<TetherPoint>() && (hit.transform.position - transform.position).magnitude < closestDistance)
+            {
+                closestHit = hit;
+                closestDistance = (hit.transform.position - transform.position).magnitude;
+            }
+
+        }
+        Debug.Log(closestHit);
+        if (!closestHit) //Must check if another one though
+        {
+            Debug.Log("Tether failed");
+            return false;
+        }
+        else
+        {
+            Debug.Log("START tether");
+            coroutineDragging = StartCoroutine(GetDragged(closestHit.gameObject));
+            return true;
+        }
+
+    }
     private void Start()
     {
         acceleration = new Vector3(0, 0, 0);
