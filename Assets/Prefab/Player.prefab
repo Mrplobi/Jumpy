@@ -129,10 +129,13 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   extraImpulsion: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
-  groundSpeed: 10
-  numberJumpMax: 500
+  groundSpeed: 7
+  numberJumpMax: 2
   numberJumpCurrent: 0
   groundedJumpSpeed: 20
+  tetherSpeed: 0
+  tetherThreshHold: 3
+  tetherDistance: 10
   airJumpSpeed: 20
   airAcceleration: 20
   airFriction: {x: 0.05, y: 0.05}
