@@ -231,6 +231,11 @@ Prefab:
       propertyPath: tetherSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114434351621790844, guid: a0c30c397fc01c34da149dd56f5d5c4a,
+        type: 2}
+      propertyPath: numberJumpMax
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0c30c397fc01c34da149dd56f5d5c4a, type: 2}
   m_IsPrefabAsset: 0
