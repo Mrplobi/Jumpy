@@ -129,8 +129,9 @@ MonoBehaviour:
   acceleration: {x: 0, y: 0, z: 0}
   extraImpulsion: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
+  manager: {fileID: 114426576991287712}
   groundSpeed: 7
-  numberJumpMax: 2
+  numberJumpMax: 149
   numberJumpCurrent: 0
   groundedJumpSpeed: 20
   tetherSpeed: 0

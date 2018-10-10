@@ -58,7 +58,7 @@ public class InputManager : MonoBehaviour
         return player.Move(Input.GetAxis("Horizontal"));
     }
     // Update is called once per frame
-    void LateUpdate()
+    public void UpdateInput()
     {
         // Debug.Log(Input.GetAxis("Horizontal"));
         if(Input.GetAxis("Horizontal")>0)

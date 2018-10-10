@@ -17,18 +17,18 @@ public class Colision : MonoBehaviour {
         }
 
     }
-    public void DetectColision()
+    public bool DetectColision()
     {
         Physics physics = gameObject.GetComponent<Physics>();
         Vector3 velocity = physics.Velocity;
-        Vector2 originDR = new Vector2(gameObject.GetComponent<Collider2D>().bounds.max.x - 0.1f, gameObject.GetComponent<Collider2D>().bounds.min.y +0.01f);
-        Vector2 originDL = new Vector2(gameObject.GetComponent<Collider2D>().bounds.min.x + 0.1f, gameObject.GetComponent<Collider2D>().bounds.min.y +0.01f);
-        Vector2 originUR = new Vector2(gameObject.GetComponent<Collider2D>().bounds.max.x - 0.1f, gameObject.GetComponent<Collider2D>().bounds.max.y + 0.01f);
-        Vector2 originUL = new Vector2(gameObject.GetComponent<Collider2D>().bounds.min.x + 0.1f, gameObject.GetComponent<Collider2D>().bounds.max.y + 0.01f);
-        Vector2 originRU = new Vector2(gameObject.GetComponent<Collider2D>().bounds.max.x + 0.01f, gameObject.GetComponent<Collider2D>().bounds.max.y - 0.1f);
-        Vector2 originRD = new Vector2(gameObject.GetComponent<Collider2D>().bounds.max.x + 0.01f, gameObject.GetComponent<Collider2D>().bounds.min.y + 0.1f);
-        Vector2 originLU = new Vector2(gameObject.GetComponent<Collider2D>().bounds.min.x + 0.01f, gameObject.GetComponent<Collider2D>().bounds.max.y - 0.1f);
-        Vector2 originLD = new Vector2(gameObject.GetComponent<Collider2D>().bounds.min.x + 0.01f, gameObject.GetComponent<Collider2D>().bounds.min.y + 0.1f);
+        Vector2 originDR = new Vector2(gameObject.GetComponent<Collider2D>().bounds.max.x - 0.15f, gameObject.GetComponent<Collider2D>().bounds.min.y +0.01f);
+        Vector2 originDL = new Vector2(gameObject.GetComponent<Collider2D>().bounds.min.x + 0.15f, gameObject.GetComponent<Collider2D>().bounds.min.y +0.01f);
+        Vector2 originUR = new Vector2(gameObject.GetComponent<Collider2D>().bounds.max.x - 0.15f, gameObject.GetComponent<Collider2D>().bounds.max.y + 0.01f);
+        Vector2 originUL = new Vector2(gameObject.GetComponent<Collider2D>().bounds.min.x + 0.15f, gameObject.GetComponent<Collider2D>().bounds.max.y + 0.01f);
+        Vector2 originRU = new Vector2(gameObject.GetComponent<Collider2D>().bounds.max.x + 0.01f, gameObject.GetComponent<Collider2D>().bounds.max.y - 0.15f);
+        Vector2 originRD = new Vector2(gameObject.GetComponent<Collider2D>().bounds.max.x + 0.01f, gameObject.GetComponent<Collider2D>().bounds.min.y + 0.15f);
+        Vector2 originLU = new Vector2(gameObject.GetComponent<Collider2D>().bounds.min.x + 0.01f, gameObject.GetComponent<Collider2D>().bounds.max.y - 0.15f);
+        Vector2 originLD = new Vector2(gameObject.GetComponent<Collider2D>().bounds.min.x + 0.01f, gameObject.GetComponent<Collider2D>().bounds.min.y + 0.15f);
         RaycastHit2D hitDR = Physics2D.Raycast(originDR, -gameObject.transform.up, velocity.y * Time.deltaTime, LayerMask.GetMask("Environment"));
         RaycastHit2D hitDL = Physics2D.Raycast(originDL, -gameObject.transform.up, velocity.y * Time.deltaTime, LayerMask.GetMask("Environment"));
         RaycastHit2D hitUR = Physics2D.Raycast(originUR, gameObject.transform.up, velocity.y * Time.deltaTime, LayerMask.GetMask("Environment"));
@@ -65,6 +65,7 @@ public class Colision : MonoBehaviour {
                     {
                         action.Invoke();
                     }
+                    return true;
                 }
                 else
                 {
@@ -79,6 +80,7 @@ public class Colision : MonoBehaviour {
                     {
                         action.Invoke();
                     }
+                    return true;
                 }
             }
             else
@@ -94,6 +96,7 @@ public class Colision : MonoBehaviour {
                 {
                     action.Invoke();
                 }
+                return true;
             }
         }
         else
@@ -119,6 +122,7 @@ public class Colision : MonoBehaviour {
                     Vector3 newSpeed = new Vector3(physics.Velocity.x, 0, 0);
                     physics.Velocity = newSpeed;
                     transform.position = new Vector3(transform.position.x, actualColision.collider.bounds.min.y - GetComponent<Collider2D>().bounds.size.y / 2 - 0.01f);
+                    return true;
                 }
                 else
                 {
@@ -126,6 +130,7 @@ public class Colision : MonoBehaviour {
                     Vector3 newSpeed = new Vector3(physics.Velocity.x, 0, 0);
                     physics.Velocity = newSpeed;
                     transform.position = new Vector3(transform.position.x, hitUL.collider.bounds.min.y - GetComponent<Collider2D>().bounds.size.y / 2 - 0.01f);
+                    return true;
                 }
             }
             else
@@ -134,6 +139,7 @@ public class Colision : MonoBehaviour {
                 Vector3 newSpeed = new Vector3(physics.Velocity.x, 0, 0);
                 physics.Velocity = newSpeed;
                 transform.position = new Vector3(transform.position.x, hitUR.collider.bounds.min.y - GetComponent<Collider2D>().bounds.size.y / 2 - 0.01f);
+                return true;
             }
         }if (hitRU || hitRD)
         {
@@ -157,6 +163,7 @@ public class Colision : MonoBehaviour {
                     transform.position = new Vector3(actualColision.collider.bounds.min.x - GetComponent<Collider2D>().bounds.size.x / 2 - 0.01f, transform.position.y);
                     InputButton actionJump = GetComponent<InputManager>().SearchForFailedAction(physics.Jump, 10);
                     InputButton actionMove = GetComponent<InputManager>().SearchForFailedAction(GetComponent<InputManager>().MoveLeft, 10);
+                    return true;
                 }
                 else
                 {
@@ -166,6 +173,7 @@ public class Colision : MonoBehaviour {
                     transform.position = new Vector3(hitRU.collider.bounds.min.x - GetComponent<Collider2D>().bounds.size.x / 2 - 0.01f, transform.position.y);
                     InputButton actionJump = GetComponent<InputManager>().SearchForFailedAction(physics.Jump, 10);
                     InputButton actionMove = GetComponent<InputManager>().SearchForFailedAction(GetComponent<InputManager>().MoveLeft, 10);
+                    return true;
                 }
             }
             else
@@ -176,6 +184,7 @@ public class Colision : MonoBehaviour {
                 transform.position = new Vector3(hitRD.collider.bounds.min.x - GetComponent<Collider2D>().bounds.size.x / 2 - 0.01f, transform.position.y);
                 InputButton actionJump = GetComponent<InputManager>().SearchForFailedAction(physics.Jump, 10);
                 InputButton actionMove = GetComponent<InputManager>().SearchForFailedAction(GetComponent<InputManager>().MoveLeft, 10);
+                return true;
             }
         }
 
@@ -201,6 +210,7 @@ public class Colision : MonoBehaviour {
                     transform.position = new Vector3(actualColision.collider.bounds.max.x + GetComponent<Collider2D>().bounds.size.x / 2 + 0.01f, transform.position.y);
                     InputButton actionJump = GetComponent<InputManager>().SearchForFailedAction(physics.Jump, 10);
                     InputButton actionMove = GetComponent<InputManager>().SearchForFailedAction(GetComponent<InputManager>().MoveRight, 10);
+                    return true;
                 }
                 else
                 {
@@ -210,6 +220,7 @@ public class Colision : MonoBehaviour {
                     transform.position = new Vector3(hitLU.collider.bounds.max.x + GetComponent<Collider2D>().bounds.size.x / 2 + 0.01f, transform.position.y);
                     InputButton actionJump = GetComponent<InputManager>().SearchForFailedAction(physics.Jump, 10);
                     InputButton actionMove = GetComponent<InputManager>().SearchForFailedAction(GetComponent<InputManager>().MoveRight, 10);
+                    return true;
                 }
             }
             else
@@ -220,8 +231,10 @@ public class Colision : MonoBehaviour {
                 transform.position = new Vector3(hitLD.collider.bounds.max.x + GetComponent<Collider2D>().bounds.size.x / 2 + 0.01f, transform.position.y);
                 InputButton actionJump = GetComponent<InputManager>().SearchForFailedAction(physics.Jump, 10);
                 InputButton actionMove = GetComponent<InputManager>().SearchForFailedAction(GetComponent<InputManager>().MoveRight, 10);
+                return true;
             }
         }
+        return false;
     }
 
     private void Update()

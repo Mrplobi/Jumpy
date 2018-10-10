@@ -13,6 +13,7 @@ public class Physics : MonoBehaviour {
     [SerializeField]
     private Vector3 velocity;
     private Coroutine coroutineDragging;
+    public InputManager manager;
 
     private bool isGrounded;
     private bool isLocked = false;
@@ -161,11 +162,13 @@ public class Physics : MonoBehaviour {
         return false;
     }
     private void Update()
-    { 
+    {
+        manager.UpdateInput();
         Gravity();
-        GVelocity();
+        GVelocity();        
         Position();
         GetComponent<Colision>().DetectColision();
+        
        
     }
 }
