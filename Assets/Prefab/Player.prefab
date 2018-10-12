@@ -130,6 +130,7 @@ MonoBehaviour:
   extraImpulsion: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   manager: {fileID: 114426576991287712}
+  colision: {fileID: 114109610487484940}
   groundSpeed: 7
   numberJumpMax: 149
   numberJumpCurrent: 0

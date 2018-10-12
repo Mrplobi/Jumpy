@@ -14,6 +14,7 @@ public class Physics : MonoBehaviour {
     private Vector3 velocity;
     private Coroutine coroutineDragging;
     public InputManager manager;
+    public Colision colision;
 
     private bool isGrounded;
     private bool isLocked = false;
@@ -137,6 +138,7 @@ public class Physics : MonoBehaviour {
     {
         if (!isLocked && isGrounded)
         {
+            acceleration.x = 0;
             velocity.x = horizontal * groundSpeed;
         }
         if (!isGrounded)
@@ -165,10 +167,8 @@ public class Physics : MonoBehaviour {
     {
         manager.UpdateInput();
         Gravity();
-        GVelocity();        
-        Position();
-        GetComponent<Colision>().DetectColision();
-        
-       
+        GVelocity();
+        colision.DetectColision();
+        //Position();       
     }
 }
