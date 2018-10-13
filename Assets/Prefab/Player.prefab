@@ -39,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1685119414424068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.01, y: -1.54, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.4}
+  m_LocalPosition: {x: -10.61, y: -6.29, z: 0}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -132,12 +132,12 @@ MonoBehaviour:
   manager: {fileID: 114426576991287712}
   colision: {fileID: 114109610487484940}
   groundSpeed: 7
-  numberJumpMax: 149
+  numberJumpMax: 2
   numberJumpCurrent: 0
-  groundedJumpSpeed: 20
-  tetherSpeed: 0
+  groundedJumpSpeed: 25
+  tetherSpeed: 7
   tetherThreshHold: 3
-  tetherDistance: 10
+  tetherDistance: 3
   airJumpSpeed: 20
   airAcceleration: 20
   airFriction: {x: 0.05, y: 0.05}

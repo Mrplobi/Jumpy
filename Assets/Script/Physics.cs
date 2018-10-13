@@ -92,6 +92,7 @@ public class Physics : MonoBehaviour {
         else
         {
             Debug.Log("START tether");
+            numberJumpCurrent = 1;
             coroutineDragging = StartCoroutine(GetDragged(closestHit.gameObject));
             return true;
         }
@@ -163,12 +164,11 @@ public class Physics : MonoBehaviour {
         }
         return false;
     }
-    private void Update()
+    private void LateUpdate()
     {
         manager.UpdateInput();
         Gravity();
         GVelocity();
         colision.DetectColision();
-        //Position();       
     }
 }
