@@ -15,7 +15,11 @@ public class Physics : MonoBehaviour {
     private Coroutine coroutineDragging;
     public InputManager manager;
     public Colision colision;
-
+    private bool isClingingRight = false;
+    private bool isClingingLeft = false;
+    private float fastFallSpeed = 15f;
+    public float wallJumpVelocityX = 6;
+    public float wallJumpVelocityY = 6;
     private bool isGrounded;
     private bool isLocked = false;
     public float groundSpeed;
@@ -55,15 +59,45 @@ public class Physics : MonoBehaviour {
             isGrounded = value;
         }
     }
+    public bool IsClingingLeft
+    {
+        get
+        {
+            return isClingingLeft;
+        }
+
+        set
+        {
+            isClingingLeft = value;
+        }
+    }
+
+    public bool IsClingingRight
+    {
+        get
+        {
+            return isClingingRight;
+        }
+
+        set
+        {
+            isClingingRight = value;
+        }
+    }
     public IEnumerator GetDragged(GameObject obj)
     {
 
 
         while ((obj.transform.position - transform.position).magnitude > tetherSpeed * Time.deltaTime * tetherThreshHold && tetherSpeed > 0)
         {
+            GetComponent<LineRenderer>().positionCount = 2;
+
+            GetComponent<LineRenderer>().SetPosition(0, transform.position);
+            GetComponent<LineRenderer>().SetPosition(1, obj.transform.position);
             Velocity = (obj.transform.position - transform.position).normalized * tetherSpeed;
             yield return null;
         }
+        GetComponent<LineRenderer>().positionCount = 0;
         coroutineDragging = null;
     }
     public bool Tether()
@@ -92,8 +126,9 @@ public class Physics : MonoBehaviour {
         else
         {
             Debug.Log("START tether");
-            numberJumpCurrent = 1;
             coroutineDragging = StartCoroutine(GetDragged(closestHit.gameObject));
+
+
             return true;
         }
 
@@ -135,11 +170,35 @@ public class Physics : MonoBehaviour {
         new_pos = gameObject.transform.position + Velocity * Time.deltaTime;
         gameObject.transform.position = new_pos;
     }
+    public bool FastFall()
+    {
+        if (isClingingLeft || isClingingRight)
+        {
+            isClingingLeft = false;
+            isClingingRight = false;
+            return true;
+        }
+        else if (!isGrounded)
+        {
+            acceleration = new Vector3(velocity.x, - fastFallSpeed);
+
+            return true;
+        }
+
+        return false;
+    }
     public bool Move(float horizontal) //TODO return false if collision
     {
+        if (horizontal > 0 && isClingingLeft)
+        {
+            isClingingLeft = false;
+        }
+        if (horizontal < 0 && isClingingRight)
+        {
+            isClingingRight = false;
+        }
         if (!isLocked && isGrounded)
         {
-            acceleration.x = 0;
             velocity.x = horizontal * groundSpeed;
         }
         if (!isGrounded)
@@ -149,17 +208,34 @@ public class Physics : MonoBehaviour {
         return true;
     }
     public bool Jump()
-    {               
-        if (isGrounded && numberJumpCurrent<numberJumpMax)
-        { 
+    {
+        if (isGrounded && numberJumpCurrent < numberJumpMax)
+        {
             velocity.y = groundedJumpSpeed;
             isGrounded = false;
             numberJumpCurrent++;
+            return true;
         }
-        else if(!isGrounded && numberJumpCurrent < numberJumpMax)
+        else if (!isGrounded && !isClingingLeft && !IsClingingRight && numberJumpCurrent < numberJumpMax)
         {
             velocity.y = airJumpSpeed;
             numberJumpCurrent++;
+            return true;
+        }
+        else if (isClingingLeft)
+        {
+            numberJumpCurrent = 0;
+            velocity.x = wallJumpVelocityX;
+            velocity.y = wallJumpVelocityY;
+            IsClingingLeft = false;
+            return true;
+        }
+        else if (isClingingRight)
+        {
+            IsClingingRight = false;
+            numberJumpCurrent = 1;
+            velocity.x = -wallJumpVelocityX;
+            velocity.y = wallJumpVelocityY;
             return true;
         }
         return false;
