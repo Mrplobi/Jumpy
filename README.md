@@ -8,6 +8,5 @@ We inplemented multiple gameplay features:
   - Tether (Smash forever)
   - Wall Jump
 
-
-
+The aim was to keep the visual part as simple as possible to judge the gameplay over the art.
 Hope you enjoy ;)
