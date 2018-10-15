@@ -342,6 +342,14 @@ public class Colision : MonoBehaviour {
                Debug.Log("LDL");
                 newSpeed.x = 0;
                 newPosition.x = Mathf.Max(hitDL.collider.bounds.max.x + GetComponent<Collider2D>().bounds.size.x / 2, newPosition.x);
+                if(!physics.IsGrounded)
+                {
+                    physics.IsClingingLeft = true;
+                }
+                else
+                {
+                    physics.IsClingingLeft = false;
+                }
             }
         }
 
@@ -358,6 +366,14 @@ public class Colision : MonoBehaviour {
                Debug.Log("DR");
                 newSpeed.x = 0;
                 newPosition.x = Mathf.Min(hitDR.collider.bounds.max.x - GetComponent<Collider2D>().bounds.size.x / 2, newPosition.x);
+                if (!physics.IsGrounded)
+                {
+                    physics.IsClingingRight = true;
+                }
+                else
+                {
+                    physics.IsClingingRight = false;
+                }
             }
 
         }
