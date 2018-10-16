@@ -274,7 +274,8 @@ public class Colision : MonoBehaviour {
         hitDL = Physics2D.Raycast(downLeft, velocity, velocity.magnitude * Time.deltaTime, LayerMask.GetMask("Environment"));
         hitDR = Physics2D.Raycast(downRight, velocity, velocity.magnitude * Time.deltaTime, LayerMask.GetMask("Environment"));
         hitUR = Physics2D.Raycast(upRight, velocity, velocity.magnitude * Time.deltaTime, LayerMask.GetMask("Environment"));
-
+        physics.IsClingingLeft = false;
+        physics.IsClingingRight = false;
         if (velocity.y <= 0)
         {
             if (hitDR && hitDR.collider.bounds.max.y - 0.01f < GetComponent<Collider2D>().bounds.min.y)
@@ -283,6 +284,8 @@ public class Colision : MonoBehaviour {
                 physics.IsGrounded = true;
                 physics.numberJumpCurrent = 0;
                 newSpeed.y = 0;
+                physics.Acceleration = new Vector3(0, physics.Acceleration.y);
+
                 newPosition.y = Mathf.Max(hitDR.collider.bounds.max.y + GetComponent<Collider2D>().bounds.size.y / 2, newPosition.y);
                 //check if jump buffered
                 InputButton action = GetComponent<InputManager>().SearchForFailedAction(physics.Jump, 10);
@@ -296,7 +299,9 @@ public class Colision : MonoBehaviour {
                Debug.Log("DDL");
                 physics.IsGrounded = true;
                 physics.numberJumpCurrent = 0;
-                newSpeed.y = 0;         
+                newSpeed.y = 0;
+                physics.Acceleration = new Vector3(0, physics.Acceleration.y);
+
                 newPosition.y = Mathf.Max(hitDL.collider.bounds.max.y + GetComponent<Collider2D>().bounds.size.y / 2, newPosition.y);
                 //check if jump buffered
                 InputButton action = GetComponent<InputManager>().SearchForFailedAction(physics.Jump, 10);
@@ -335,21 +340,21 @@ public class Colision : MonoBehaviour {
             {
                Debug.Log("UL");
                 newSpeed.x = 0;
+                physics.Acceleration = new Vector3(0, physics.Acceleration.y);
+
                 newPosition.x = Mathf.Max(hitUL.collider.bounds.max.x + GetComponent<Collider2D>().bounds.size.x / 2, newPosition.x);
             }
             if (hitDL && hitDL.collider.bounds.max.x -0.01f < GetComponent<Collider2D>().bounds.min.x)
             {
                Debug.Log("LDL");
                 newSpeed.x = 0;
+                physics.Acceleration= new Vector3(0,physics.Acceleration.y);
                 newPosition.x = Mathf.Max(hitDL.collider.bounds.max.x + GetComponent<Collider2D>().bounds.size.x / 2, newPosition.x);
                 if(!physics.IsGrounded)
                 {
                     physics.IsClingingLeft = true;
                 }
-                else
-                {
-                    physics.IsClingingLeft = false;
-                }
+                
             }
         }
 
@@ -359,21 +364,22 @@ public class Colision : MonoBehaviour {
             {
                Debug.Log("UR");
                 newSpeed.x = 0;
+                physics.Acceleration = new Vector3(0, physics.Acceleration.y);
+
                 newPosition.x = Mathf.Min(hitUR.collider.bounds.min.x - GetComponent<Collider2D>().bounds.size.x / 2, newPosition.x);
             }
             if (hitDR && hitDR.collider.bounds.min.x +0.01f > GetComponent<Collider2D>().bounds.max.x)
             {
                Debug.Log("DR");
                 newSpeed.x = 0;
+                physics.Acceleration = new Vector3(0, physics.Acceleration.y);
+
                 newPosition.x = Mathf.Min(hitDR.collider.bounds.max.x - GetComponent<Collider2D>().bounds.size.x / 2, newPosition.x);
                 if (!physics.IsGrounded)
                 {
                     physics.IsClingingRight = true;
                 }
-                else
-                {
-                    physics.IsClingingRight = false;
-                }
+
             }
 
         }

@@ -84,6 +84,20 @@ public class Physics : MonoBehaviour {
             isClingingRight = value;
         }
     }
+
+    public Vector3 Acceleration
+    {
+        get
+        {
+            return acceleration;
+        }
+
+        set
+        {
+            acceleration = value;
+        }
+    }
+
     public IEnumerator GetDragged(GameObject obj)
     {
 
@@ -125,6 +139,7 @@ public class Physics : MonoBehaviour {
         }
         else
         {
+            numberJumpCurrent = Mathf.Min(numberJumpCurrent, numberJumpMax - 1);
             Debug.Log("START tether");
             coroutineDragging = StartCoroutine(GetDragged(closestHit.gameObject));
 
@@ -135,7 +150,7 @@ public class Physics : MonoBehaviour {
     }
     private void Start()
     {
-        acceleration = new Vector3(0, 0, 0);
+        Acceleration = new Vector3(0, 0, 0);
         Velocity = new Vector3(0, 0, 0);
     }
 
@@ -160,7 +175,7 @@ public class Physics : MonoBehaviour {
 
         }
           
-        new_velocity = velocity + acceleration * Time.deltaTime;
+        new_velocity = velocity + Acceleration * Time.deltaTime;
         Velocity = new_velocity;
     }
 
@@ -180,7 +195,7 @@ public class Physics : MonoBehaviour {
         }
         else if (!isGrounded)
         {
-            acceleration = new Vector3(velocity.x, - fastFallSpeed);
+            Acceleration = new Vector3(velocity.x, - fastFallSpeed);
 
             return true;
         }

@@ -64,8 +64,9 @@
     <Compile Include="Assets\Script\Colision.cs" />
     <Compile Include="Assets\Script\InputButton.cs" />
     <Compile Include="Assets\Script\InputManager.cs" />
-    <Compile Include="Assets\Script\mover.cs" />
+    <Compile Include="Assets\Script\Mover.cs" />
     <Compile Include="Assets\Script\Physics.cs" />
+    <Compile Include="Assets\Script\Respawn.cs" />
     <Compile Include="Assets\Script\TetherPoint.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>E:/cours/JIN/IHM/Jumpy-Mac-Jumpface/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
