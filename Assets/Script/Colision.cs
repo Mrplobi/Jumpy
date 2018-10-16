@@ -276,6 +276,8 @@ public class Colision : MonoBehaviour {
         hitUR = Physics2D.Raycast(upRight, velocity, velocity.magnitude * Time.deltaTime, LayerMask.GetMask("Environment"));
         physics.IsClingingLeft = false;
         physics.IsClingingRight = false;
+     
+
         if (velocity.y <= 0)
         {
             if (hitDR && hitDR.collider.bounds.max.y - 0.01f < GetComponent<Collider2D>().bounds.min.y)
@@ -360,7 +362,7 @@ public class Colision : MonoBehaviour {
 
         if (velocity.x >= 0)
         {
-            if (hitUR && hitUR.collider.bounds.min.x +0.01f > GetComponent<Collider2D>().bounds.max.x)
+            if (hitUR && hitUR.collider.bounds.min.x +0.2f > GetComponent<Collider2D>().bounds.max.x)
             {
                Debug.Log("UR");
                 newSpeed.x = 0;
@@ -368,7 +370,7 @@ public class Colision : MonoBehaviour {
 
                 newPosition.x = Mathf.Min(hitUR.collider.bounds.min.x - GetComponent<Collider2D>().bounds.size.x / 2, newPosition.x);
             }
-            if (hitDR && hitDR.collider.bounds.min.x +0.01f > GetComponent<Collider2D>().bounds.max.x)
+            if (hitDR && hitDR.collider.bounds.min.x +0.2f > GetComponent<Collider2D>().bounds.max.x)
             {
                Debug.Log("DR");
                 newSpeed.x = 0;

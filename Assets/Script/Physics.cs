@@ -33,6 +33,7 @@ public class Physics : MonoBehaviour {
     public float airAcceleration;
     public Vector2 airFriction;
     public Vector2 groundFriction;
+    public float accelerationSlide=12f;
     public Vector3 Velocity
     {
         get
@@ -170,9 +171,15 @@ public class Physics : MonoBehaviour {
     {
         Vector3 new_velocity;
         if (!isGrounded)
-        { velocity.x= Mathf.Abs(velocity.x) - airFriction.x  * Mathf.Abs(velocity.x) > 0 ? velocity.x - Mathf.Sign(velocity.x) * airFriction.x * Mathf.Abs(velocity.x) : 0;
-            velocity.y = Mathf.Abs(velocity.y) - airFriction.y * Mathf.Abs(velocity.y) > 0 ? velocity.y - Mathf.Sign(velocity.y)*airFriction.y * Mathf.Abs(velocity.y) : 0;
+        {
 
+            velocity.x= Mathf.Abs(velocity.x) - airFriction.x  * Mathf.Abs(velocity.x) > 0 ? velocity.x - Mathf.Sign(velocity.x) * airFriction.x * Mathf.Abs(velocity.x) : 0;
+            if(velocity.y<0 && (isClingingLeft || isClingingRight))
+            {
+                acceleration.y += accelerationSlide;
+            }
+            velocity.y = Mathf.Abs(velocity.y) - airFriction.y * Mathf.Abs(velocity.y) > 0 ? velocity.y - Mathf.Sign(velocity.y)*airFriction.y * Mathf.Abs(velocity.y) : 0;
+            
         }
           
         new_velocity = velocity + Acceleration * Time.deltaTime;
