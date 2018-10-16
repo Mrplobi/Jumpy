@@ -9,7 +9,7 @@ public class Respawn : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         collision.transform.position = respawnPoint.transform.position;
-        collision.transform.position = respawnPoint.transform.GetComponent<Physics>().Velocity=new Vector3();
-        collision.transform.position = respawnPoint.transform.GetComponent<Physics>().Acceleration=new Vector3();
+        collision.gameObject.GetComponent<Physics>().Velocity=new Vector3();
+        collision.gameObject.GetComponent<Physics>().Acceleration=new Vector3();
     }
 }
