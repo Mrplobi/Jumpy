@@ -250,7 +250,7 @@ public class Physics : MonoBehaviour {
         }
         else if (isClingingLeft)
         {
-            numberJumpCurrent = 0;
+            numberJumpCurrent = 1;
             velocity.x = wallJumpVelocityX;
             velocity.y = wallJumpVelocityY;
             IsClingingLeft = false;
