@@ -17,7 +17,7 @@ public class Physics : MonoBehaviour {
     public Colision colision;
     private bool isClingingRight = false;
     private bool isClingingLeft = false;
-    private float fastFallSpeed = 15f;
+    public float fastFallSpeed = 40f;
     public float wallJumpVelocityX = 6;
     public float wallJumpVelocityY = 6;
     private bool isGrounded;
@@ -102,7 +102,10 @@ public class Physics : MonoBehaviour {
     public IEnumerator GetDragged(GameObject obj)
     {
 
-
+        if((obj.transform.position - transform.position).y>0)
+        {
+            IsGrounded = false;
+        }
         while ((obj.transform.position - transform.position).magnitude > tetherSpeed * Time.deltaTime * tetherThreshHold && tetherSpeed > 0)
         {
             GetComponent<LineRenderer>().positionCount = 2;
@@ -120,11 +123,11 @@ public class Physics : MonoBehaviour {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, tetherDistance, LayerMask.GetMask("Tether"));
         float closestDistance = tetherDistance;
         Collider2D closestHit = null;
-        Debug.Log("Size tether hits" + hits.Length);
+      //  Debug.Log("Size tether hits" + hits.Length);
         foreach (Collider2D hit in hits)//get closest and get dragged to it
         {
-            Debug.Log("Tether distance" + (hit.transform.position - transform.position).magnitude);
-            Debug.Log(hit.gameObject);
+        //    Debug.Log("Tether distance" + (hit.transform.position - transform.position).magnitude);
+           // Debug.Log(hit.gameObject);
             if (hit.GetComponent<TetherPoint>() && (hit.transform.position - transform.position).magnitude < closestDistance)
             {
                 closestHit = hit;
@@ -132,16 +135,17 @@ public class Physics : MonoBehaviour {
             }
 
         }
-        Debug.Log(closestHit);
+       // Debug.Log(closestHit);
         if (!closestHit) //Must check if another one though
         {
-            Debug.Log("Tether failed");
+            //Debug.Log("Tether failed");
             return false;
         }
         else
         {
             numberJumpCurrent = Mathf.Min(numberJumpCurrent, numberJumpMax - 1);
-            Debug.Log("START tether");
+            //Debug.Log("START tether");
+            //Debug.Log("transform ou aller:" + closestHit.gameObject.transform.position);
             coroutineDragging = StartCoroutine(GetDragged(closestHit.gameObject));
 
 
@@ -202,7 +206,7 @@ public class Physics : MonoBehaviour {
         }
         else if (!isGrounded)
         {
-            Acceleration = new Vector3(velocity.x, - fastFallSpeed);
+            extraImpulsion = new Vector3(velocity.x, - fastFallSpeed);
 
             return true;
         }

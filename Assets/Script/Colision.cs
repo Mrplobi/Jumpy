@@ -282,7 +282,7 @@ public class Colision : MonoBehaviour {
         {
             if (hitDR && hitDR.collider.bounds.max.y - 0.01f < GetComponent<Collider2D>().bounds.min.y)
             {
-                Debug.Log("DR");
+               // Debug.Log("DR");
                 physics.IsGrounded = true;
                 physics.numberJumpCurrent = 0;
                 newSpeed.y = 0;
@@ -298,7 +298,7 @@ public class Colision : MonoBehaviour {
             }
             if (hitDL && hitDL.collider.bounds.max.y -0.01f  < GetComponent<Collider2D>().bounds.min.y)
             {
-               Debug.Log("DDL");
+               //Debug.Log("DDL");
                 physics.IsGrounded = true;
                 physics.numberJumpCurrent = 0;
                 newSpeed.y = 0;
@@ -324,13 +324,13 @@ public class Colision : MonoBehaviour {
         {
             if (hitUR && hitUR.collider.bounds.min.y > GetComponent<Collider2D>().bounds.max.y && hitUR.collider.tag != "Crossable")
             {
-               Debug.Log("UR");
+              // Debug.Log("UR");
                 newSpeed.y = 0;
                 newPosition.y = Mathf.Min(hitUR.collider.bounds.min.y - GetComponent<Collider2D>().bounds.size.y / 2 - 0.01f , newPosition.y);
             }
             if (hitUL && hitUL.collider.bounds.min.y > GetComponent<Collider2D>().bounds.max.y && hitUL.collider.tag != "Crossable")
             {
-               Debug.Log("UL");
+               //Debug.Log("UL");
                 newSpeed.y = 0;
                 newPosition.y = Mathf.Min(hitUL.collider.bounds.min.y - GetComponent<Collider2D>().bounds.size.y / 2 - 0.01f, newPosition.y);
             }
@@ -340,7 +340,7 @@ public class Colision : MonoBehaviour {
         {
             if (hitUL && hitUL.collider.bounds.max.x -0.01f < GetComponent<Collider2D>().bounds.min.x)
             {
-               Debug.Log("UL");
+              // Debug.Log("UL");
                 newSpeed.x = 0;
                 physics.Acceleration = new Vector3(0, physics.Acceleration.y);
 
@@ -348,7 +348,7 @@ public class Colision : MonoBehaviour {
             }
             if (hitDL && hitDL.collider.bounds.max.x -0.01f < GetComponent<Collider2D>().bounds.min.x)
             {
-               Debug.Log("LDL");
+               //Debug.Log("LDL");
                 newSpeed.x = 0;
                 physics.Acceleration= new Vector3(0,physics.Acceleration.y);
                 newPosition.x = Mathf.Max(hitDL.collider.bounds.max.x + GetComponent<Collider2D>().bounds.size.x / 2, newPosition.x);
@@ -364,7 +364,7 @@ public class Colision : MonoBehaviour {
         {
             if (hitUR && hitUR.collider.bounds.min.x +0.2f > GetComponent<Collider2D>().bounds.max.x)
             {
-               Debug.Log("UR");
+             //  Debug.Log("UR");
                 newSpeed.x = 0;
                 physics.Acceleration = new Vector3(0, physics.Acceleration.y);
 
@@ -372,7 +372,7 @@ public class Colision : MonoBehaviour {
             }
             if (hitDR && hitDR.collider.bounds.min.x +0.2f > GetComponent<Collider2D>().bounds.max.x)
             {
-               Debug.Log("DR");
+           //    Debug.Log("DR");
                 newSpeed.x = 0;
                 physics.Acceleration = new Vector3(0, physics.Acceleration.y);
 
