@@ -3,7 +3,7 @@ Small Project for JIN
 
 The main aspect of this project is to create a Platformer without using the physics integrated in Unity.
 The physic Works With Raycasts and some triggers. 
-We implemented multiple gameplay features:
+The main gameplay features are:
   - Double Jump
   - Tether (Smash forever)
   - Wall Jump
